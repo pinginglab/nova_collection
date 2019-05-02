@@ -132,12 +132,3 @@ venv.bak/
 .idea/modules.xml
 .idea/nova_collection.iml
 .idea/workspace.xml
-apps/users/__init__.py
-apps/users/admin.py
-apps/users/apps.py
-apps/users/models.py
-apps/users/tests.py
-apps/users/views.py
-manage.py
-nova_collection/
-templates/
