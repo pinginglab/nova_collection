@@ -5,7 +5,6 @@ from django.core.mail import send_mail
 from django.http import HttpResponse
 
 from apps.users.models import EmailVerifyRecord
-from nova_collection.conf import body
 from nova_collection.conf.email import DEFAULT_FROM_EMAIL
 
 
@@ -23,24 +22,23 @@ def send_register_email(email, send_type="register"):
     email_record.code = code
     email_record.email = email
     email_record.send_type = send_type
-    url = "http://127.0.0.1:8000/user/active/"+code
+    url = "http://127.0.0.1:8000/user/active/" + code
     email_record.save()
     # 保存到数据库完成
     send_my_email(url, email)
 
 
 def send_my_email(req, rec):
-    title = "pingsec攻防平台注册码"
+    title = "pingsec code"
     email_from = DEFAULT_FROM_EMAIL
     try:
         # 发送邮件
-        send_mail(title, req, email_from, rec)
+        reciever = [rec]
+        send_mail(title, req, email_from, reciever)
     except Exception as e:
-        body['code'] = 500
-        body['status'] = 'fail'
-        body['msg'] = e
-        return HttpResponse(body)
-    body['code'] = 200
-    body['status'] = 'success'
-    body['msg'] = '已发送'
-    return HttpResponse(body)
+        body = {'code': '500', 'status': 'fail', 'msg': e.__str__()}
+        # return HttpResponse(body)
+        print(body)
+    body = {'code': 200, 'status': 'success', 'msg': '已发送'}
+    # return HttpResponse(body)
+    print(body)
