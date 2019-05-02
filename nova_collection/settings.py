@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 from nova_collection.conf.db import *
 from nova_collection.conf.email import *
-from nova_collection.conf.body import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -43,6 +42,8 @@ INSTALLED_APPS = [
     'apps.users',
     'apps.core',
 ]
+
+# AUTH_USER_MODEL = "apps.users.models.PingUser"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

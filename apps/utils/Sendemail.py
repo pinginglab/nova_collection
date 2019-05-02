@@ -22,7 +22,7 @@ def send_register_email(email, send_type="register"):
     email_record.code = code
     email_record.email = email
     email_record.send_type = send_type
-    url = "http://127.0.0.1:8000/user/active/" + code
+    url = "点击连接完成激活:http://127.0.0.1:8000/account/active/" + code
     email_record.save()
     # 保存到数据库完成
     send_my_email(url, email)
@@ -36,7 +36,7 @@ def send_my_email(req, rec):
         reciever = [rec]
         send_mail(title, req, email_from, reciever)
     except Exception as e:
-        body = {'code': '500', 'status': 'fail', 'msg': e.__str__()}
+        body = {'code': 500, 'status': 'fail', 'msg': e.__str__()}
         # return HttpResponse(body)
         print(body)
     body = {'code': 200, 'status': 'success', 'msg': '已发送'}
