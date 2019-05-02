@@ -3,9 +3,7 @@ import socket
 
 import docker
 from django.http import JsonResponse
-from django.views import View
-
-from apps.utils.Authentication import auth_permission_required
+from rest_framework.views import APIView
 
 
 def IsOpen(ip, port):
@@ -20,14 +18,13 @@ def IsOpen(ip, port):
         return False
 
 
-class ContainerView(View):
+class ContainerView(APIView):
     # authentication_classes = (authentication.TokenAuthentication,)
     # permission_classes = (permissions.IsAdminUser,)
 
     def __init__(self):
         self.client = docker.from_env()
 
-    @auth_permission_required('account.select_user')
     def get(self, request):
         # data = request.body.decode('utf-8')
         # data = json.loads(data)
@@ -39,10 +36,6 @@ class ContainerView(View):
             port = random.randint(10000, 30000)
             if not IsOpen(ip, port.__str__()):
                 container_new = self.client.containers.run("webgoat/webgoat-7.1", detach=True, ports={'8080/tcp': port})
-                # return Response(container_new.id)
-                #         return render(request, 'test-list.html', {
-                #             'containerid': container_new.id
-                #         })
-                return JsonResponse({"port": port, "containerid": container_new.id}.__str__())
+                return JsonResponse({"port": port, "containerid": container_new.id})
             else:
                 continue

@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.urls import path
+from rest_framework_jwt.views import obtain_jwt_token
 
 from apps.core.views.IndexView import IndexView
 from apps.users.views.LoginView import LoginView
@@ -24,8 +25,10 @@ from apps.users.views.RegisterView import RegisterView
 urlpatterns = [
     path('admin/', admin.site.urls),
     # 用户操作相关URL配置
-    url(r'^account/', include('apps.users.urls')),
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^register/$', RegisterView.as_view(), name='register'),
-    url(r'^.*', IndexView.as_view(), name='index'),
+    url(r'^account/', include('apps.users.urls')),
+    url(r'^core/', include('apps.core.urls')),
+    url(r'^api-token-auth/', obtain_jwt_token),
+    url(r'^$', IndexView.as_view(), name='index'),
 ]
