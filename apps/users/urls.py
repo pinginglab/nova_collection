@@ -1,14 +1,15 @@
 from django.conf.urls import url
 
+from apps.users.views.LoginView import LoginView
 from apps.users.views.CheckUrlView import CheckUrlView
 
 urlpatterns = [
     # # 验证用户注册后，在邮件里点击注册链接
-    url(r'active/(?P<active_code>.*)/$', CheckUrlView.as_view, name='active_user'),
+    url(r'active/(?P<active_code>.*)$', CheckUrlView.as_view(), name='active_user'),
     # url(r'^reset/(?P<active_code>.*)/$', ResetView.as_view(), name='reset_pwd'),
     # url(r'^forget/$', ForgetPwdView.as_view(), name='forget_pwd'),
     # url(r'^modify_pwd/$', ModifyPwdView.as_view(), name='modify_pwd'),
-
+    url(r'^login/$', LoginView.as_view(), name='login'),
 
     # # 用户信息
     # url(r'^info/$', UserInfoView.as_view(), name='user_info'),

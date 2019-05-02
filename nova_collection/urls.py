@@ -19,11 +19,13 @@ from django.urls import path
 
 from apps.core.views.IndexView import IndexView
 from apps.users.views.LoginView import LoginView
+from apps.users.views.RegisterView import RegisterView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # 用户操作相关URL配置
     url(r'^account/', include('apps.users.urls')),
-    url(r'^login/$', LoginView.as_view, name='login'),
-    url(r'^index/$', IndexView.as_view, name='index'),
+    url(r'^login/$', LoginView.as_view(), name='login'),
+    url(r'^register/$', RegisterView.as_view(), name='register'),
+    url(r'^.*', IndexView.as_view(), name='index'),
 ]

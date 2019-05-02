@@ -37,8 +37,6 @@ def send_my_email(req, rec):
         send_mail(title, req, email_from, reciever)
     except Exception as e:
         body = {'code': 500, 'status': 'fail', 'msg': e.__str__()}
-        # return HttpResponse(body)
         print(body)
     body = {'code': 200, 'status': 'success', 'msg': '已发送'}
-    # return HttpResponse(body)
-    print(body)
+    return HttpResponse(body)

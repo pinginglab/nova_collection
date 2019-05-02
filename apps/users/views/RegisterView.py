@@ -12,10 +12,8 @@ class RegisterView(View):
     #     return render(request, 'register.html', {'register_form': register_form})
 
     def post(self, request):
-        data = request.POST
-        # register_form = RegisterForm(request.POST)
-        # if register_form.is_valid():
-        user_name = request.POST.get('email', '')
+        data = eval(request.body.decode())
+        user_name = data.get('email', '')
         if PingUser.objects.filter(email=user_name):
             body = {'code': 500, 'status': 'fail', 'msg': '帐号已存在:('}
             return JsonResponse(body)
@@ -25,7 +23,10 @@ class RegisterView(View):
         user_profile.email = user_name
         user_profile.is_active = False
         user_profile.password = make_password(pass_word)
-        user_profile.save()
-        send_register_email(user_name)
-        body = {'code': 200, 'status': 'success', 'msg': '注册成功\n请查看邮箱通过验证码激活:)'}
+        try:
+            user_profile.save()
+            send_register_email(user_name)
+            body = {'code': 200, 'status': 'success', 'msg': '注册成功\n请查看邮箱通过验证码激活:)'}
+        except Exception as e:
+            body = {'code': 400, 'status': 'fail', 'msg': e.__str__()}
         return JsonResponse(body)
