@@ -1,0 +1,13 @@
+nova:
+    image: registry.cmic.site:5000/sg/nova:1.0
+    environment:
+        - MYSQL_DB_NAME=nova
+        - MYSQL_DB_HOST=10.153.115.23
+        - MYSQL_DB_PORT=3306
+        - MYSQL_DB_USER=sr
+        - MYSQL_DB_PSW=%!X8hFNP&1
+        - DEBUG=0
+    ports:
+        - "7426:7426"
+    restart: always
+    command: python manage.py runserver 0.0.0.0:7426

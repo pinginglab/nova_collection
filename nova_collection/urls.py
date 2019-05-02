@@ -17,8 +17,13 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.urls import path
 
+from apps.core.views.IndexView import IndexView
+from apps.users.views.LoginView import LoginView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     # 用户操作相关URL配置
     url(r'^account/', include('apps.users.urls')),
+    url(r'^login/$', LoginView.as_view, name='login'),
+    url(r'^index/$', IndexView.as_view, name='index'),
 ]

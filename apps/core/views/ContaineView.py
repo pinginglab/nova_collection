@@ -2,7 +2,7 @@ import random
 import socket
 
 import docker
-from django.http import HttpResponse
+from django.http import JsonResponse
 from django.views import View
 
 from apps.utils.Authentication import auth_permission_required
@@ -43,6 +43,6 @@ class ContainerView(View):
                 #         return render(request, 'test-list.html', {
                 #             'containerid': container_new.id
                 #         })
-                return HttpResponse({"port": port, "containerid": container_new.id}.__str__())
+                return JsonResponse({"port": port, "containerid": container_new.id}.__str__())
             else:
                 continue

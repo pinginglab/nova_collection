@@ -115,4 +115,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-SECRET_KEY = 'dwifhqoaiwertj012v315'
+

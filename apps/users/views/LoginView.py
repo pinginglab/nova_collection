@@ -16,7 +16,7 @@ class LoginView(View):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                body = {'code': 200, 'status': 'success', 'msg': ''}
+                body = {'code': 200, 'status': 'success', 'msg': user.token}
             else:
                 body = {'code': 400, 'status': 'fail', 'msg': '用户未激活!'}
         else:
