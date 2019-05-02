@@ -129,5 +129,5 @@ REST_FRAMEWORK = {
 }
 
 JWT_AUTH = {
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=os.environ.get('JWT_DELTA', 7))
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=os.environ.get('JWT_DELTA', 12))
 }

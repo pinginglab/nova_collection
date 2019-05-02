@@ -57,18 +57,11 @@ def auth_permission_required(perm):
     return decorator
 
 
-class Authentication(object):
-    def __init__(self, Payload, algorithm='HS256'):
-        self.Payload = Payload
-        self.Signature = settings.SECRET_KEY
-        self.algorithm = algorithm
-        self.UserModel = get_user_model()
+def set_token(Payload, Signature=settings.SECRET_KEY, algorithm='HS256'):
+    encoded_jwt = jwt.encode(Payload, Signature, algorithm)
+    return encoded_jwt
 
-    def set_token(self):
-        encoded_jwt = jwt.encode(self.Payload, self.Signature, self.algorithm)
-        return encoded_jwt
 
-    def get_message(self, token, Signature, algorithm='HS256'):
-        decoded_jwt = jwt.decode(token, Signature, algorithm)
-        return decoded_jwt
-
+def get_message(token, Signature=settings.SECRET_KEY, algorithm='HS256'):
+    decoded_jwt = jwt.decode(token, Signature, algorithm)
+    return decoded_jwt
